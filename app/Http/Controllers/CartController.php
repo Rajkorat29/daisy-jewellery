@@ -15,8 +15,38 @@ class CartController extends Controller
         $this->cartService = $cartService;
     }
 
+    protected function requireLoginResponse(Request $request): JsonResponse
+    {
+        $referer = $request->headers->get('referer');
+        if ($referer) {
+            $request->session()->put('url.intended', $referer);
+        }
+
+        return response()->json([
+            'success' => false,
+            'require_auth' => true,
+            'redirect_url' => route('login', ['reason' => 'shop']),
+            'message' => 'Please sign in first to add or buy products.',
+        ], 401);
+    }
+
     public function index(Request $request)
     {
+        if (! $request->user()) {
+            if ($request->query('fragment')) {
+                return response(
+                    '<div class="empty">' .
+                    '<h3>Sign in required</h3>' .
+                    '<p class="muted">Please sign in first to add products to your bag or place an order.</p>' .
+                    '<a class="btn solid" href="' . route('login', ['reason' => 'shop']) . '" style="justify-content:center;margin-top:1rem">Sign in to shop</a>' .
+                    '</div>'
+                );
+            }
+
+            return redirect()->route('login', ['reason' => 'shop'])
+                ->with('error', 'Please sign in first to view your bag or buy products.');
+        }
+
         $cart = $this->cartService->getCart($request);
         $totals = $this->cartService->getTotals($cart);
 
@@ -29,6 +59,10 @@ class CartController extends Controller
 
     public function add(Request $request): JsonResponse
     {
+        if (! $request->user()) {
+            return $this->requireLoginResponse($request);
+        }
+
         $request->validate([
             'product_id' => 'required|exists:products,id',
             'size_label' => 'nullable|string|max:10',
@@ -52,6 +86,10 @@ class CartController extends Controller
 
     public function update(Request $request): JsonResponse
     {
+        if (! $request->user()) {
+            return $this->requireLoginResponse($request);
+        }
+
         $request->validate([
             'item_id' => 'required|integer',
             'quantity' => 'nullable|integer|min:0|max:10',
@@ -76,6 +114,10 @@ class CartController extends Controller
 
     public function remove(Request $request): JsonResponse
     {
+        if (! $request->user()) {
+            return $this->requireLoginResponse($request);
+        }
+
         $request->validate([
             'item_id' => 'required|integer',
         ]);
@@ -93,6 +135,10 @@ class CartController extends Controller
 
     public function applyCoupon(Request $request): JsonResponse
     {
+        if (! $request->user()) {
+            return $this->requireLoginResponse($request);
+        }
+
         $request->validate([
             'coupon_code' => 'required|string|max:30',
         ]);
@@ -105,6 +151,10 @@ class CartController extends Controller
 
     public function removeCoupon(Request $request): JsonResponse
     {
+        if (! $request->user()) {
+            return $this->requireLoginResponse($request);
+        }
+
         $cart = $this->cartService->getCart($request);
         $this->cartService->removeCoupon($cart);
 

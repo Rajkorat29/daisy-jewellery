@@ -111,8 +111,8 @@
       <table>
         <thead>
           <tr>
+            <th>Piece</th>
             <th>Date &amp; Time</th>
-            <th>Title &amp; Subtitle</th>
             <th>Metal</th>
             <th>Weight</th>
             <th>Price</th>
@@ -124,12 +124,17 @@
           @foreach($drops as $d)
             <tr>
               <td>
-                <b>{{ $d->drop_date }}</b><br>
-                <small class="mono" style="color:var(--muted)">{{ $d->drop_time }}</small>
+                <div style="display:flex;align-items:center;gap:.75rem">
+                  <img src="{{ $d->imageUrl() }}" alt="{{ $d->title }}" style="width:48px;height:48px;border-radius:10px;object-fit:cover;border:1px solid var(--line);flex:none">
+                  <div>
+                    <strong>{{ $d->title }}</strong><br>
+                    <small class="muted">{{ $d->subtitle }}</small>
+                  </div>
+                </div>
               </td>
               <td>
-                <strong>{{ $d->title }}</strong><br>
-                <small class="muted">{{ $d->subtitle }}</small>
+                <b>{{ $d->drop_date }}</b><br>
+                <small class="mono" style="color:var(--muted)">{{ $d->drop_time }}</small>
               </td>
               <td>{{ $d->metal_label }}</td>
               <td class="mono">{{ $d->weight_label }}</td>
@@ -155,7 +160,7 @@
     <!-- Add Drop Form -->
     <details style="background:var(--bg);border:1px solid var(--line);border-radius:16px;padding:1rem">
       <summary style="font-weight:700;cursor:pointer">＋ Add New Scheduled Drop</summary>
-      <form action="{{ route('admin.cms.drop.save') }}" method="POST" class="form" style="margin-top:1rem">
+      <form action="{{ route('admin.cms.drop.save') }}" method="POST" enctype="multipart/form-data" class="form" style="margin-top:1rem">
         @csrf
         <div class="row2">
           <div class="fld">
@@ -201,6 +206,22 @@
               <option value="available">Available</option>
               <option value="sold_out">Sold Out</option>
             </select>
+          </div>
+        </div>
+
+        <div class="row2">
+          <div class="fld">
+            <label>Link Product (Optional)</label>
+            <select name="product_id" class="in">
+              <option value="">Auto-match by title</option>
+              @foreach($products as $prod)
+                <option value="{{ $prod->id }}">{{ $prod->name }} ({{ $prod->formatted_price }})</option>
+              @endforeach
+            </select>
+          </div>
+          <div class="fld">
+            <label>Custom Product Photo (Optional)</label>
+            <input class="in" type="file" name="image" accept="image/*">
           </div>
         </div>
 

@@ -25,7 +25,7 @@
   <form action="{{ route('checkout.store') }}" method="POST" id="checkoutForm">
     @csrf
 
-    <div style="display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:2rem;align-items:start">
+    <div class="checkout-layout">
       <!-- Left: Delivery Address & Payment Method -->
       <div style="display:grid;gap:1.5rem">
         <!-- 1. Delivery Address Card -->
@@ -60,7 +60,7 @@
             <div class="form">
               <div class="fld">
                 <label for="cName">Full Name *</label>
-                <input class="in" type="text" id="cName" name="name" value="{{ old('name', auth()->user()?->name) }}" placeholder="e.g. Aarav Sharma">
+                <input class="in" type="text" id="cName" name="name" value="{{ old('name', auth()->user()?->name) }}" placeholder="Enter your full name">
               </div>
 
               <div class="row2">

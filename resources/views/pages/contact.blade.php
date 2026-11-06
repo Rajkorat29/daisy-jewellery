@@ -8,7 +8,7 @@
     <a href="{{ url('/') }}">Home</a> / Contact
   </p>
 
-  <div style="display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:2rem;align-items:start">
+  <div class="split-2col">
     <div class="page-box">
       <h1 class="page-title" style="font-size:2.2rem">We'd love to hear from you.</h1>
       <p style="color:var(--muted);font-size:1.05rem;line-height:1.6;margin-bottom:1.5rem">

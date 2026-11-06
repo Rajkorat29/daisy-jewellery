@@ -72,7 +72,7 @@
     </div>
 
     <!-- Details Grid -->
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-top:2rem;border-top:1px solid var(--line);padding-top:1.5rem">
+    <div class="order-details-grid">
       <div>
         <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:.5rem">Shipping Address</h3>
         <p style="margin:0;line-height:1.6">

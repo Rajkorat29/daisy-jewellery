@@ -2,6 +2,17 @@
 (function () {
     const reduce = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
     const csrfToken = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+    const isAuthenticated = document.querySelector('meta[name="auth-check"]')?.getAttribute('content') === '1';
+    const baseLoginUrl = document.querySelector('meta[name="login-url"]')?.getAttribute('content') || '/login';
+
+    window.redirectToLoginForShop = function () {
+        const currentPath = window.location.pathname + window.location.search;
+        const target = `${baseLoginUrl}?redirect=${encodeURIComponent(currentPath)}&reason=shop`;
+        if (window.showToast) {
+            window.showToast('Please sign in first to add or buy products');
+        }
+        window.location.href = target;
+    };
 
     // 1. Toast Notification Helper
     let toastTimeout;
@@ -195,6 +206,10 @@
     // 7. Global Bag Drawer & Cart Handler
     window.DaisyCart = {
         open() {
+            if (!isAuthenticated) {
+                window.redirectToLoginForShop();
+                return;
+            }
             const drawer = document.getElementById('cartDrawer');
             if (drawer) {
                 this.loadDrawer();
@@ -225,6 +240,10 @@
             }
         },
         async add(productId, sizeLabel = '16', quantity = 1, openDrawer = true) {
+            if (!isAuthenticated) {
+                window.redirectToLoginForShop();
+                return false;
+            }
             try {
                 const res = await fetch('/cart/add', {
                     method: 'POST',
@@ -236,17 +255,24 @@
                     body: JSON.stringify({ product_id: productId, size_label: sizeLabel, quantity }),
                 });
                 const data = await res.json();
+                if (res.status === 401 || data.require_auth) {
+                    window.redirectToLoginForShop();
+                    return false;
+                }
                 if (data.success) {
                     window.showToast(data.message || 'Added to bag!');
                     this.updateCount(data.cart_count);
                     if (openDrawer) {
                         this.open();
                     }
+                    return true;
                 } else {
                     window.showToast(data.message || 'Could not add item to bag');
+                    return false;
                 }
             } catch (e) {
                 window.showToast('Error adding item to bag');
+                return false;
             }
         },
         async update(itemId, quantity, sizeLabel) {

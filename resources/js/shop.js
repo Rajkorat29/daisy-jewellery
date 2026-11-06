@@ -240,8 +240,10 @@
         if (buyBtn) {
             buyBtn.addEventListener('click', async () => {
                 const prodId = buyBtn.dataset.productId;
-                await window.DaisyCart.add(prodId, selectedSize, 1, false);
-                window.location.href = '/checkout';
+                const added = await window.DaisyCart.add(prodId, selectedSize, 1, false);
+                if (added) {
+                    window.location.href = '/checkout';
+                }
             });
         }
     }

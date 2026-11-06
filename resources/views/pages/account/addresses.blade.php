@@ -11,14 +11,19 @@
   <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:1rem">
     <h1 style="font-size:clamp(2rem,4vw,3rem);font-weight:800;letter-spacing:-.03em">Saved Addresses</h1>
 
-    <div style="display:flex;gap:.6rem;flex-wrap:wrap">
+    <div style="display:flex;gap:.6rem;flex-wrap:wrap;align-items:center">
       <a class="btn {{ request()->routeIs('account.orders*') ? 'solid' : '' }}" href="{{ route('account.orders') }}">Orders</a>
       <a class="btn {{ request()->routeIs('account.addresses*') ? 'solid' : '' }}" href="{{ route('account.addresses') }}">Addresses</a>
       <a class="btn {{ request()->routeIs('account.profile*') ? 'solid' : '' }}" href="{{ route('account.profile') }}">Profile</a>
+
+      <form method="POST" action="{{ route('logout') }}" style="margin:0">
+        @csrf
+        <button type="submit" class="btn pink">Log out</button>
+      </form>
     </div>
   </div>
 
-  <div style="display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:2rem;align-items:start">
+  <div class="split-2col">
     <!-- Existing Addresses -->
     <div>
       @if($addresses->count() === 0)

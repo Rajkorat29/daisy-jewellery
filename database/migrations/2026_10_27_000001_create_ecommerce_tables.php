@@ -218,6 +218,7 @@ return new class extends Migration
             $table->string('metal_label')->nullable();
             $table->string('weight_label')->nullable();
             $table->string('price_label')->nullable();
+            $table->string('image')->nullable();
             $table->enum('status', ['available', 'sold_out'])->default('available');
             $table->integer('sort_order')->default(0);
             $table->timestamps();

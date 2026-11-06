@@ -35,7 +35,7 @@
       </button>
 
       @auth
-        <a href="{{ route('account.orders') }}" class="tbtn" title="{{ auth()->user()->name }}" aria-label="Account">
+        <a href="{{ route('account.profile') }}" class="tbtn" title="{{ auth()->user()->name }}" aria-label="Account Profile">
           <svg aria-hidden="true"><use href="#user"/></svg>
         </a>
       @else

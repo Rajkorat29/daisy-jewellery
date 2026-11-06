@@ -251,8 +251,10 @@ document.addEventListener('DOMContentLoaded', function () {
     const buyBtn = document.getElementById('standaloneBuyNow');
     if (buyBtn) {
         buyBtn.addEventListener('click', async () => {
-            await window.DaisyCart.add(prodId, selectedSize, 1, false);
-            window.location.href = '{{ route("checkout.index") }}';
+            const added = await window.DaisyCart.add(prodId, selectedSize, 1, false);
+            if (added) {
+                window.location.href = '{{ route("checkout.index") }}';
+            }
         });
     }
 

@@ -72,39 +72,68 @@
     </div>
   </section>
 
-  <!-- 3. New Drops List -->
+  <!-- 3. New Drops Showcase -->
   <section class="wrap" id="drops" aria-labelledby="dropsH">
     <div class="sec-h">
       <h2 id="dropsH">New drops</h2>
       <span class="mono" style="color:var(--muted)">Exclusive pieces, weights and prices</span>
     </div>
-    <ul class="drops">
+    <div class="drops-grid">
       @foreach($drops as $drop)
-        <li class="drop">
-          <span class="date">{{ $drop->drop_date }}</span>
-          <span class="time">{{ $drop->drop_time }}</span>
-          <span class="metal">
-            <i class="dot" style="--c:var(--gold)"></i>{{ $drop->metal_label }}
-          </span>
-          <h3>{{ $drop->title }}<small>{{ $drop->subtitle }}</small></h3>
-          <span class="wt">{{ $drop->weight_label }}</span>
-          <span class="price">{{ $drop->price_label }}</span>
+        @php
+          $dropImg = $drop->imageUrl();
+          $dropUrl = $drop->shopUrl();
+          $isSoldOut = $drop->status === 'sold_out';
+        @endphp
+        <article class="drop-card {{ $isSoldOut ? 'is-sold' : '' }}">
+          <a href="{{ $dropUrl }}" class="drop-media" aria-label="View {{ $drop->title }}">
+            <img src="{{ $dropImg }}" alt="{{ $drop->title }}" loading="lazy">
+            <span class="drop-date-badge mono">
+              {{ $drop->drop_date }} · {{ $drop->drop_time }}
+            </span>
+            @if($isSoldOut)
+              <span class="drop-status-badge sold mono">Sold out</span>
+            @else
+              <span class="drop-status-badge live mono">New drop</span>
+            @endif
+          </a>
 
-          <span class="meta-line">
-            <span>{{ $drop->drop_time }}</span>
-            <span>{{ $drop->metal_label }}</span>
-            <span>{{ $drop->weight_label }}</span>
-            <span>{{ $drop->price_label }}</span>
-          </span>
+          <div class="drop-body">
+            <div class="drop-specs">
+              <span class="metal">
+                <i class="dot" style="--c:var(--gold)"></i>{{ $drop->metal_label }}
+              </span>
+              @if($drop->weight_label)
+                <span class="wt mono">{{ $drop->weight_label }}</span>
+              @endif
+            </div>
 
-          @if($drop->status === 'sold_out')
-            <span class="sold act">Sold out</span>
-          @else
-            <a class="btn act" href="{{ $drop->product_id ? route('product.show', $drop->product_id) : route('rings') }}">Shop</a>
-          @endif
-        </li>
+            <h3 class="drop-title">
+              <a href="{{ $dropUrl }}">{{ $drop->title }}</a>
+            </h3>
+
+            @if($drop->subtitle)
+              <p class="drop-sub">{{ $drop->subtitle }}</p>
+            @endif
+
+            <div class="drop-footer">
+              <div class="drop-price-block">
+                <span class="drop-price-lbl mono">Price</span>
+                <span class="price">{{ $drop->price_label }}</span>
+              </div>
+
+              @if($isSoldOut)
+                <span class="sold-pill mono">Sold out</span>
+              @else
+                <a class="btn solid drop-act" href="{{ $dropUrl }}">
+                  Shop <svg aria-hidden="true"><use href="#arrow"/></svg>
+                </a>
+              @endif
+            </div>
+          </div>
+        </article>
       @endforeach
-    </ul>
+    </div>
   </section>
 
   <!-- 4. Follow Daisy Social Rail -->

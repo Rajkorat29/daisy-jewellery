@@ -14,7 +14,7 @@ class HomeController extends Controller
     public function index(Request $request): View
     {
         $heroSlides = HeroSlide::where('is_active', true)->orderBy('sort_order')->get();
-        $drops = Drop::orderBy('sort_order')->get();
+        $drops = Drop::with('product.images')->orderBy('sort_order')->get();
         $socialPosts = SocialPost::where('is_active', true)->orderBy('sort_order')->get();
         $marqueeWords = MarqueeWord::orderBy('sort_order')->get();
 

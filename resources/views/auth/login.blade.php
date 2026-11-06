@@ -1,6 +1,12 @@
 <x-guest-layout>
   <h2 style="font-size:1.6rem;font-weight:800;letter-spacing:-.03em;margin-bottom:1.2rem">Sign in</h2>
 
+  @if(request('reason') === 'shop')
+    <div style="background:#fde8f0;color:#d81b66;padding:.75rem 1rem;border-radius:12px;margin-bottom:1rem;font-size:.9rem;font-weight:600">
+      Please sign in first to add items to your bag or buy products.
+    </div>
+  @endif
+
   @if(session('error'))
     <div style="background:#fde8f0;color:#d81b66;padding:.75rem 1rem;border-radius:12px;margin-bottom:1rem;font-size:.9rem">
       {{ session('error') }}
@@ -43,11 +49,5 @@
   <div style="margin-top:1.5rem;border-top:1px solid var(--line);padding-top:1.2rem;text-align:center;font-size:.92rem">
     <span class="muted">Don't have an account?</span>
     <a href="{{ route('register') }}" style="font-weight:700;color:var(--pink);margin-left:.3rem">Create an account</a>
-  </div>
-
-  <div style="margin-top:1rem;background:var(--bg);border:1px solid var(--line);border-radius:14px;padding:.8rem;font-size:.82rem">
-    <strong class="mono" style="color:var(--muted)">Demo Credentials:</strong><br>
-    Admin: <code class="mono">admin@daisy.test</code> / <code class="mono">Admin@12345</code><br>
-    Customer: <code class="mono">customer@daisy.test</code> / <code class="mono">Customer@12345</code>
   </div>
 </x-guest-layout>

@@ -8,7 +8,7 @@
     <a href="{{ url('/') }}">Home</a> / Visit &amp; Custom Orders
   </p>
 
-  <div style="display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1.2fr);gap:2rem;align-items:start">
+  <div class="split-2col">
     <div>
       <div class="page-box">
         <h1 class="page-title" style="font-size:2.2rem">Visit the Studio</h1>

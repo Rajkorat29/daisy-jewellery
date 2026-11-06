@@ -81,6 +81,7 @@ class CmsController extends Controller
     {
         $validated = $request->validate([
             'id' => 'nullable|integer',
+            'product_id' => 'nullable|exists:products,id',
             'title' => 'required|string|max:100',
             'subtitle' => 'nullable|string|max:150',
             'drop_date' => 'required|string|max:50',
@@ -90,9 +91,17 @@ class CmsController extends Controller
             'price_label' => 'nullable|string|max:30',
             'status' => 'required|in:available,sold_out',
             'sort_order' => 'nullable|integer',
+            'image' => 'nullable|image|max:4096',
         ]);
 
         $validated['sort_order'] = (int) $request->input('sort_order', 0);
+
+        if ($request->hasFile('image') && \Illuminate\Support\Facades\Schema::hasColumn('drops', 'image')) {
+            $paths = $this->imageService->uploadProductImage($request->file('image'), 'cms');
+            $validated['image'] = $paths['original'];
+        } else {
+            unset($validated['image']);
+        }
 
         if (! empty($validated['id'])) {
             $drop = Drop::findOrFail($validated['id']);

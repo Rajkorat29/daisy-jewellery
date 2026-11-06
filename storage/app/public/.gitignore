@@ -1,2 +1,6 @@
 *
+!products/
+!products/**
+!cms/
+!cms/**
 !.gitignore

@@ -4,6 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta name="auth-check" content="{{ auth()->check() ? '1' : '0' }}">
+  <meta name="login-url" content="{{ route('login') }}">
   <title>@yield('title', config('app.name', 'Daisy') . ' — Handcrafted Jewellery')</title>
 
   <!-- Google Fonts -->

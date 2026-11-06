@@ -29,41 +29,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Users
-        $admin = User::firstOrCreate(
-            ['email' => 'admin@daisy.test'],
+        // 1. Admin User
+        User::updateOrCreate(
+            ['role' => 'admin'],
             [
-                'name' => 'Daisy Admin',
+                'name' => 'Krishu Admin',
+                'email' => 'krishu@daisy.test',
                 'phone' => '9876543210',
-                'password' => Hash::make('Admin@12345'),
+                'password' => Hash::make('krisha1247'),
                 'role' => 'admin',
                 'is_blocked' => false,
                 'email_verified_at' => now(),
-            ]
-        );
-
-        $customer = User::firstOrCreate(
-            ['email' => 'customer@daisy.test'],
-            [
-                'name' => 'Aarav Sharma',
-                'phone' => '9811223344',
-                'password' => Hash::make('Customer@12345'),
-                'role' => 'customer',
-                'is_blocked' => false,
-                'email_verified_at' => now(),
-            ]
-        );
-
-        // Saved customer address
-        Address::firstOrCreate(
-            ['user_id' => $customer->id, 'is_default' => true],
-            [
-                'name' => 'Aarav Sharma',
-                'phone' => '9811223344',
-                'pincode' => '400001',
-                'address_line' => 'Flat 402, Sea Breeze Apts, Marine Drive',
-                'city' => 'Mumbai',
-                'state' => 'Maharashtra',
             ]
         );
 
@@ -490,6 +466,240 @@ class DatabaseSeeder extends Seeder
                 'short_description' => 'Baroque organic pearl encased in gold lattice.',
                 'description' => 'Each piece is organically one-of-a-kind. Handcrafted cage opens to hold a tiny keepsake.',
             ],
+            [
+                'name' => 'Meenakari Chandbalis',
+                'slug' => 'meenakari-chandbalis',
+                'category' => 'earrings',
+                'metal' => '22K Gold',
+                'stone' => 'Polki & Enamel',
+                'weight_grams' => 16.50,
+                'price' => 112000,
+                'mrp' => 128000,
+                'rating_avg' => 4.9,
+                'rating_count' => 214,
+                'art_symbol' => 'earrings',
+                'color_class' => 'c-gold',
+                'stock' => 10,
+                'is_featured' => true,
+                'short_description' => 'Royal crescent chandbalis with hand-painted meenakari.',
+                'description' => 'Handcrafted Jaipuri crescent chandbali earrings in 22K hallmarked gold with uncut polki stones and pearl drops.',
+            ],
+            [
+                'name' => 'Pearl Drop Earrings',
+                'slug' => 'pearl-drop-earrings',
+                'category' => 'earrings',
+                'metal' => '18K Gold',
+                'stone' => 'South Sea Pearl',
+                'weight_grams' => 5.40,
+                'price' => 28500,
+                'mrp' => 33000,
+                'rating_avg' => 4.7,
+                'rating_count' => 165,
+                'art_symbol' => 'earrings',
+                'color_class' => 'c-lilac',
+                'stock' => 22,
+                'is_featured' => false,
+                'short_description' => 'Lustrous South Sea pearls suspended on 18K gold hooks.',
+                'description' => 'Minimalist everyday luxury earrings featuring natural high-lustre pearls set on solid 18K yellow gold.',
+            ],
+            [
+                'name' => 'Solitaire Diamond Studs',
+                'slug' => 'solitaire-diamond-studs',
+                'category' => 'earrings',
+                'metal' => '18K White Gold',
+                'stone' => 'Lab diamond 1.0 ct',
+                'weight_grams' => 3.20,
+                'price' => 64500,
+                'mrp' => 74000,
+                'rating_avg' => 4.9,
+                'rating_count' => 390,
+                'art_symbol' => 'earrings',
+                'color_class' => 'c-sapphire',
+                'stock' => 18,
+                'is_featured' => true,
+                'short_description' => 'Classic four-prong round brilliant diamond studs.',
+                'description' => 'Matched pair of certified VVS-EF lab-grown diamonds mounted in secure 18K white gold Martini settings.',
+            ],
+            [
+                'name' => 'Lotus Crystal Drops',
+                'slug' => 'lotus-crystal-drops',
+                'category' => 'earrings',
+                'metal' => '925 Silver',
+                'stone' => 'Rose quartz & CZ',
+                'weight_grams' => 6.80,
+                'price' => 4800,
+                'mrp' => 6500,
+                'rating_avg' => 4.5,
+                'rating_count' => 290,
+                'art_symbol' => 'earrings',
+                'color_class' => 'c-pink',
+                'stock' => 35,
+                'is_featured' => false,
+                'short_description' => 'Sculpted lotus motif earrings with faceted crystal drops.',
+                'description' => 'Rose-gold vermeil over 925 sterling silver with blooming lotus petals and delicate dangling crystals.',
+            ],
+            [
+                'name' => 'Diamond Tennis Bracelet',
+                'slug' => 'diamond-tennis-bracelet',
+                'category' => 'bangles',
+                'metal' => '18K White Gold',
+                'stone' => 'Lab diamonds 3.5 ct',
+                'weight_grams' => 14.80,
+                'price' => 142000,
+                'mrp' => 165000,
+                'rating_avg' => 4.9,
+                'rating_count' => 128,
+                'art_symbol' => 'bangle',
+                'color_class' => 'c-sapphire',
+                'stock' => 8,
+                'is_featured' => true,
+                'short_description' => 'Continuous line of brilliant cut diamonds in white gold.',
+                'description' => 'Fluid articulated links set with 54 individually matched round brilliant diamonds and a double-safety box clasp.',
+            ],
+            [
+                'name' => 'Polki Jadau Bangle',
+                'slug' => 'polki-jadau-bangle',
+                'category' => 'bangles',
+                'metal' => '22K Gold',
+                'stone' => 'Uncut Polki & Emerald',
+                'weight_grams' => 28.50,
+                'price' => 194000,
+                'mrp' => 218000,
+                'rating_avg' => 4.8,
+                'rating_count' => 76,
+                'art_symbol' => 'bangle',
+                'color_class' => 'c-emerald',
+                'stock' => 6,
+                'is_featured' => true,
+                'short_description' => 'Heritage hinged kada set with uncut polki and emeralds.',
+                'description' => 'Bespoke Bikaneri jadau craftsmanship in hallmarked 22K gold with intricate inner meenakari.',
+            ],
+            [
+                'name' => 'Sleek Stacker Cuff',
+                'slug' => 'sleek-stacker-cuff',
+                'category' => 'bangles',
+                'metal' => '18K Rose Gold',
+                'stone' => 'Pavé diamonds',
+                'weight_grams' => 11.20,
+                'price' => 58000,
+                'mrp' => 66000,
+                'rating_avg' => 4.6,
+                'rating_count' => 184,
+                'art_symbol' => 'bangle',
+                'color_class' => 'c-pink',
+                'stock' => 19,
+                'is_featured' => false,
+                'short_description' => 'Minimalist open cuff tipped with diamond pavé.',
+                'description' => 'Designed for effortless everyday stacking, cast in warm 18K rose gold with ergonomic oval silhouette.',
+            ],
+            [
+                'name' => 'Emerald Pendant Chain',
+                'slug' => 'emerald-pendant-chain',
+                'category' => 'necklaces',
+                'metal' => '18K Gold',
+                'stone' => 'Zambian Emerald',
+                'weight_grams' => 6.40,
+                'price' => 46500,
+                'mrp' => 53000,
+                'rating_avg' => 4.8,
+                'rating_count' => 210,
+                'art_symbol' => 'necklace',
+                'color_class' => 'c-emerald',
+                'stock' => 14,
+                'is_featured' => true,
+                'short_description' => 'Octagon-cut emerald pendant on a fine box chain.',
+                'description' => 'Vivid green Zambian emerald bezel-set in 18K yellow gold on an adjustable 16-to-18 inch chain.',
+            ],
+            [
+                'name' => 'Gul Choker',
+                'slug' => 'gul-choker',
+                'category' => 'necklaces',
+                'metal' => '22K Gold',
+                'stone' => 'Rubies & Seed Pearls',
+                'weight_grams' => 34.00,
+                'price' => 228000,
+                'mrp' => 255000,
+                'rating_avg' => 4.9,
+                'rating_count' => 88,
+                'art_symbol' => 'necklace',
+                'color_class' => 'c-pink',
+                'stock' => 5,
+                'is_featured' => true,
+                'short_description' => 'Bridal floral gold choker with ruby clusters.',
+                'description' => 'Hand-articulated floral medallions in 22K gold fringed with natural Burmese rubies and basra-style pearls.',
+            ],
+            [
+                'name' => 'Polki Hasli Necklace',
+                'slug' => 'polki-hasli-necklace',
+                'category' => 'necklaces',
+                'metal' => '22K Gold',
+                'stone' => 'Uncut Polki',
+                'weight_grams' => 26.80,
+                'price' => 175000,
+                'mrp' => 198000,
+                'rating_avg' => 4.8,
+                'rating_count' => 72,
+                'art_symbol' => 'necklace',
+                'color_class' => 'c-gold',
+                'stock' => 7,
+                'is_featured' => false,
+                'short_description' => 'Sculpted collar hasli lined with gleaming polki stones.',
+                'description' => 'A modern heirloom blending sleek hammered gold torque lines with traditional kundan-polki drops.',
+            ],
+            [
+                'name' => 'Solitaire Floating Pendant',
+                'slug' => 'solitaire-floating-pendant',
+                'category' => 'necklaces',
+                'metal' => '18K White Gold',
+                'stone' => 'Lab diamond 0.75 ct',
+                'weight_grams' => 3.80,
+                'price' => 49900,
+                'mrp' => 58000,
+                'rating_avg' => 4.7,
+                'rating_count' => 245,
+                'art_symbol' => 'necklace',
+                'color_class' => 'c-sapphire',
+                'stock' => 20,
+                'is_featured' => false,
+                'short_description' => 'Whisper-thin white gold chain with a floating solitaire.',
+                'description' => 'Engineered to let maximum light enter the diamond from all angles, sitting right at the collarbone.',
+            ],
+            [
+                'name' => 'Chand Moti Choker',
+                'slug' => 'chand-moti-choker',
+                'category' => 'pearls',
+                'metal' => '22K Gold',
+                'stone' => 'Freshwater Pearls & Polki',
+                'weight_grams' => 29.40,
+                'price' => 84000,
+                'mrp' => 96000,
+                'rating_avg' => 4.9,
+                'rating_count' => 134,
+                'art_symbol' => 'pearls',
+                'color_class' => 'c-lilac',
+                'stock' => 9,
+                'is_featured' => true,
+                'short_description' => 'Multi-strand pearl choker with a crescent gold clasp.',
+                'description' => 'Five rows of luminous hand-matched pearls united by a central 22K gold crescent centerpiece.',
+            ],
+            [
+                'name' => 'Emerald Pearl Mala',
+                'slug' => 'emerald-pearl-mala',
+                'category' => 'pearls',
+                'metal' => '22K Gold',
+                'stone' => 'Pearls & Emerald Beads',
+                'weight_grams' => 42.00,
+                'price' => 68000,
+                'mrp' => 78000,
+                'rating_avg' => 4.8,
+                'rating_count' => 112,
+                'art_symbol' => 'pearls',
+                'color_class' => 'c-emerald',
+                'stock' => 11,
+                'is_featured' => true,
+                'short_description' => 'Long layered mala of cultured pearls and carved emerald beads.',
+                'description' => 'Regal 24-inch opera-length strand alternating creamy South Sea pearls with fluted green emerald stations.',
+            ],
         ];
 
         foreach ($otherProducts as $index => $item) {
@@ -526,20 +736,7 @@ class DatabaseSeeder extends Seeder
             $createdProducts[$product->slug] = $product;
         }
 
-        // 6. Reviews
-        if (isset($createdProducts['bandhan-ring-stack'])) {
-            Review::firstOrCreate(
-                ['product_id' => $createdProducts['bandhan-ring-stack']->id, 'user_id' => $customer->id],
-                [
-                    'rating' => 5,
-                    'title' => 'Stunning shine and weight!',
-                    'body' => 'Ordered this for my anniversary. The rings look even better in person, and the rubies have a deep, vibrant glint. Highly recommended.',
-                    'is_approved' => true,
-                ]
-            );
-        }
-
-        // 7. Coupons
+        // 6. Coupons
         Coupon::firstOrCreate(
             ['code' => 'WELCOME10'],
             [
@@ -547,7 +744,7 @@ class DatabaseSeeder extends Seeder
                 'value' => 10.00,
                 'min_order' => 0.00,
                 'max_uses' => 500,
-                'used_count' => 12,
+                'used_count' => 0,
                 'is_active' => true,
             ]
         );
@@ -559,7 +756,7 @@ class DatabaseSeeder extends Seeder
                 'value' => 500.00,
                 'min_order' => 5000.00,
                 'max_uses' => 1000,
-                'used_count' => 45,
+                'used_count' => 0,
                 'is_active' => true,
             ]
         );
@@ -682,6 +879,10 @@ class DatabaseSeeder extends Seeder
         ];
 
         foreach ($dropsData as $drop) {
+            $slug = Str::slug($drop['title']);
+            if (isset($createdProducts[$slug])) {
+                $drop['product_id'] = $createdProducts[$slug]->id;
+            }
             Drop::firstOrCreate(['title' => $drop['title']], $drop);
         }
 
@@ -766,48 +967,6 @@ class DatabaseSeeder extends Seeder
 
         foreach ($settings as $k => $v) {
             Setting::firstOrCreate(['key' => $k], ['value' => $v]);
-        }
-
-        // 13. Sample Orders
-        $orderStatuses = ['placed', 'confirmed', 'packed', 'shipped', 'delivered'];
-        $sampleRing = $createdProducts['bandhan-ring-stack'] ?? Product::first();
-
-        foreach ($orderStatuses as $idx => $status) {
-            $num = 'DSY-' . (100100 + $idx);
-            $order = Order::firstOrCreate(
-                ['order_number' => $num],
-                [
-                    'user_id' => $customer->id,
-                    'customer_name' => 'Aarav Sharma',
-                    'customer_email' => 'customer@daisy.test',
-                    'customer_phone' => '9811223344',
-                    'shipping_address_line' => 'Flat 402, Sea Breeze Apts, Marine Drive',
-                    'shipping_city' => 'Mumbai',
-                    'shipping_state' => 'Maharashtra',
-                    'shipping_pincode' => '400001',
-                    'subtotal' => 38400.00,
-                    'discount' => 0.00,
-                    'delivery_fee' => 0.00,
-                    'total' => 38400.00,
-                    'payment_method' => $idx % 2 === 0 ? 'COD' : 'UPI',
-                    'payment_status' => $status === 'delivered' ? 'paid' : ($status === 'placed' ? 'pending' : 'paid'),
-                    'order_status' => $status,
-                    'created_at' => now()->subDays(6 - $idx),
-                ]
-            );
-
-            if ($sampleRing) {
-                OrderItem::firstOrCreate(
-                    ['order_id' => $order->id, 'product_id' => $sampleRing->id],
-                    [
-                        'product_name' => $sampleRing->name,
-                        'size_label' => '16',
-                        'quantity' => 1,
-                        'unit_price' => $sampleRing->price,
-                        'mrp' => $sampleRing->mrp,
-                    ]
-                );
-            }
         }
     }
 }
